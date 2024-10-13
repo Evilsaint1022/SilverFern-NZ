@@ -31,6 +31,10 @@ const commands = [
         name: 'cat',
         description: 'Get a random cat image from The Cat API',
     },
+    {
+        name: 'github',
+        description: 'The GitHub Repository Link',
+    },
 // ------------------------------------------------- @Staff Application Commands -----------------------------------------------------------------------
 
     {

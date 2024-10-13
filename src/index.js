@@ -36,6 +36,7 @@ client.commands = new Map();
             "🌿𝗦𝗶𝗹𝘃𝗲𝗿𝗙𝗲𝗿𝗻 𝗡𝗭",
             "𝗕𝘂𝗶𝗹𝘁 𝗹𝗶𝗸𝗲 𝗔 𝗠𝗶𝘁𝗿𝗲 𝟭𝟬",
             "𝗦𝗵𝗼𝗽𝗽𝗶𝗻𝗴 𝗮𝘁 𝗣𝗮𝗸𝗻𝗦𝗹𝗮𝘃𝗲",
+            "𝙞 𝙨𝙚𝙚 𝙮𝙤𝙪 👀",
         ];
     const activity = activities[Math.floor(Math.random() * activities.length)];
     client.user.setActivity(activity, { type: ActivityType.Custom });
