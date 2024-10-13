@@ -23,6 +23,14 @@ const commands = [
         name: 'spotify',
         description: 'The Spotify Link',
     },
+    {
+        name: 'dog',
+        description: 'Get a random dog image from The Dog API',
+    },
+    {
+        name: 'cat',
+        description: 'Get a random cat image from The Cat API',
+    },
 // ------------------------------------------------- @Staff Application Commands -----------------------------------------------------------------------
 
     {
