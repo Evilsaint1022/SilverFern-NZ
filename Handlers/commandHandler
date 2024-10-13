@@ -1,0 +1,21 @@
+// commandHandler.js
+const fs = require('fs');
+const path = require('path');
+const Table = require('ascii-table');
+
+module.exports = (client) => {
+    client.commands = new Map();
+    
+    const commandFiles = fs.readdirSync(path.join(__dirname, '../Commands')).filter(file => file.endsWith('.js'));
+
+    const table = new Table();
+    table.setHeading("      Commands     ", "Status");
+
+    for (const file of commandFiles) {
+        const command = require(`../Commands/${file}`);
+        client.commands.set(command.data.name, command);
+        table.addRow(command.data.name, 'Loaded');
+    }
+
+   return console.log(table.toString()), console.log("(✅│Successfully Loaded Commands)");
+};
