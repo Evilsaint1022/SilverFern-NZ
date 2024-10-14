@@ -1,3 +1,3 @@
 @echo off
-cd C:\Users\William\Desktop\SilverFern NZ
+cd [ Enter Directory Here ]
 nodemon
