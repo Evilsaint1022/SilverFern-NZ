@@ -35,7 +35,7 @@ module.exports = {
                     color: 0x020202,
                     title: `****__Spotify Application Command__ -【${timestamp}】****`,
                     thumbnail: { url: guildIconUrl },
-                    description: `** User: ${user.tag} \nCommand: Spotify\nChannel: ${channelName}**`
+                    description: `** User: ${user.tag} \nCommand: /Spotify\nChannel: ${channelName}**`
                 }]
             }).catch(error => {
                 console.error("Error sending message:", error);

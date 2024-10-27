@@ -20,7 +20,7 @@ module.exports = {
       });
 
       const catImageUrl = response.data[0].url;
-      const messageContent = `Here's a random cat for you!😺\n${catImageUrl}`;
+      const messageContent = `Here's a random cat for you! 😺\n${catImageUrl}`;
 
       await interaction.reply({ content: messageContent });
 
@@ -31,7 +31,7 @@ module.exports = {
             color: 0x020202,
             title: `**__Cat Application Command__ - 【${timestamp}】**`,
             thumbnail: { url: guildIconUrl },
-            description: `**User: ${user.tag}\nCommand: Cat\nMessage: ${messageContent}\nChannel: ${channel.name}**`,
+            description: `**User: ${user.tag}\nCommand: /Cat\nMessage: ${messageContent}\nChannel: ${channel.name}**`,
           }],
         });
       }

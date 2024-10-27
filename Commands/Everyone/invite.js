@@ -21,7 +21,7 @@ module.exports = {
                     color: 0x020202,
                     title: `**__Invite Application Command__ -【${timestamp}】**`,
                     thumbnail: { url: guildIconUrl }, // Display user's avatar as thumbnail
-                    description: `**User: ${user.tag}\nCommand: Invite\nChannel: ${channel.name}**`,
+                    description: `**User: ${user.tag}\nCommand: /Invite\nChannel: ${channel.name}**`,
                 }],
             }).catch(error => {
                 console.error("Error sending message:", error);

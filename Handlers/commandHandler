@@ -8,7 +8,7 @@ module.exports = async (client) => {
 
     const commandFolders = ['Everyone', 'Staff-Only']; // Folders to load commands from
     const table = new Table();
-    table.setHeading("      Commands     ", "Folder", "Status"); // Add Folder to the table heading
+    table.setHeading("Commands", "Status");
 
     // Loop through each folder and load commands
     for (const folder of commandFolders) {
@@ -21,6 +21,9 @@ module.exports = async (client) => {
                 console.log(`No command files found in the ${folder} folder.`);
             }
 
+            // Add the folder name as a title row
+            table.addRow(folder, "");
+
             for (const file of commandFiles) {
                 if (file.endsWith('.js')) {
                     try {
@@ -32,13 +35,13 @@ module.exports = async (client) => {
                                 ...command,
                                 folder // Add the folder info to the command object
                             });
-                            table.addRow(command.data.name, folder, 'Loaded'); // Show folder in the table row
+                            table.addRow(`  ${command.data.name} `, 'Loaded'); // Indent command name for better readability
                         } else {
-                            table.addRow(file, folder, 'Error: Missing command data'); // Show folder in error row
+                            table.addRow(`${file}`, 'Error: Missing command data'); // Indent error row
                         }
                     } catch (error) {
                         console.error(`Error loading command ${file}: ${error}`);
-                        table.addRow(file, folder, 'Error'); // Show folder in error row
+                        table.addRow(`  ${file}`, 'Error'); // Indent error row
                     }
                 }
             }

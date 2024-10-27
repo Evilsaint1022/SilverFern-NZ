@@ -1,12 +1,13 @@
 function loadEvents(client) {
     const ascii = require('ascii-table');
     const fs = require('fs');
-    const table = new ascii().setHeading("Events", "Folder", "Status"); // Add Folder column in the heading
+    const table = new ascii().setHeading("Events", "Status");
 
     const folders = fs.readdirSync('./Events'); // Get all the folders in the Events directory
     for (const folder of folders) {
-        const files = fs.readdirSync(`./Events/${folder}`).filter((file) => file.endsWith(".js"));
+        table.addRow(folder, ""); // Add the folder name as a title row
 
+        const files = fs.readdirSync(`./Events/${folder}`).filter((file) => file.endsWith(".js"));
         for (const file of files) {
             const event = require(`../Events/${folder}/${file}`); // Load the event file
 
@@ -23,8 +24,8 @@ function loadEvents(client) {
                     client.on(event.name, (...args) => event.execute(...args, client));
             }
 
-            // Add row to the table, including the folder name
-            table.addRow(file, folder, "Loaded"); // Show folder in the table row
+            // Add the event file under the respective folder title
+            table.addRow(`  ${file}`, "Loaded"); // Indent the file name for better readability
         }
     }
 

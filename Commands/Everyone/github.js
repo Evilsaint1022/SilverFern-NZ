@@ -22,7 +22,7 @@ module.exports = {
           color: 0x020202, // Dark color for the embed
           title: `**__GitHub Application Command__ -【${timestamp}】**`, // Updated title to "GitHub"
           thumbnail: { url: guildIconUrl }, // Display guild icon as thumbnail
-          description: `**User: ${user.tag}\nCommand: GitHub\nMessage: ${messageContent}\nChannel: ${channel.name}**`, // Updated description with "GitHub"
+          description: `**User: ${user.tag}\nCommand: /GitHub\nMessage: ${messageContent}\nChannel: ${channel.name}**`, // Updated description with "GitHub"
         }],
       }).catch(error => {
         console.error("Error sending message:", error); // Error handling if sending the log fails

@@ -33,7 +33,7 @@ module.exports = {
                     color: 0x020202,
                     title: `**__Echo Application Command__ -【${timestamp}】**`,
                     thumbnail: { url: guildIconUrl }, // Display user's avatar as thumbnail
-                    description: `**User: ${user.tag}\nCommand: Echo\nMessage: ${messageContent}\nChannel: ${channel.name}**`,
+                    description: `**User: ${user.tag}\nCommand: /Echo\nMessage: ${messageContent}\nChannel: ${channel.name}**`,
                 }],
             }).catch(error => {
                 console.error("Error sending message:", error);

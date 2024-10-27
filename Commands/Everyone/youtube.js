@@ -36,7 +36,7 @@ module.exports = {
                     color: 0x020202,
                     title: `**__Youtube Application Command__ -【${timestamp}】**`,
                     thumbnail: { url: guildIconUrl },
-                    description: `** User: ${user.tag} \nCommand: Youtube\nChannel: ${channelName}**`
+                    description: `** User: ${user.tag} \nCommand: /Youtube\nChannel: ${channelName}**`
                 }]
             }).catch(error => {
                 console.error("Error sending message:", error);

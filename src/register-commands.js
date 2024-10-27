@@ -53,6 +53,30 @@ const commands = [
         name: 'stop',
         description: 'Staff only command!',
     },
+    {
+        name: 'mute',
+        description: 'Mute a member by adding and removing specific roles',
+        options: [
+            {
+                name: 'member',
+                description: 'The member to mute',
+                type: 6,
+                required: true,
+            },
+        ],
+    },
+    {
+        name: 'unmute',
+        description: 'Mute a member by adding and removing specific roles',
+        options: [
+            {
+                name: 'member',
+                description: 'The member to mute',
+                type: 6,
+                required: true,
+            },
+        ],
+    },
 ];
 
 const rest = new REST({ version: '10' }).setToken(process.env.TOKEN);

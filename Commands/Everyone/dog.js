@@ -37,7 +37,7 @@ module.exports = {
             color: 0x020202, // Dark color for the embed
             title: `**__Dog Application Command__ -【${timestamp}】**`, // Updated title to "Dog"
             thumbnail: { url: guildIconUrl }, // Display guild icon as thumbnail
-            description: `**User: ${user.tag}\nCommand: Dog\nMessage: ${messageContent}\nChannel: ${channel.name}**`, // Updated description with "Dog"
+            description: `**User: ${user.tag}\nCommand: /Dog\nMessage: ${messageContent}\nChannel: ${channel.name}**`, // Updated description with "Dog"
           }],
         }).catch(error => {
           console.error("Error sending message:", error); // Error handling if sending the log fails
