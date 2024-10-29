@@ -1,2 +1,2 @@
 # SilverFern-NZ
-This The Discord Bot Running In The SilverFern NZ Discord Server.
+This Is The Discord Bot Running In The SilverFern NZ Discord Server.
