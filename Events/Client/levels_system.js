@@ -8,7 +8,12 @@ module.exports = {
     async execute(message) {
         if (message.author.bot) return;
 
+        const mutedRoleId = '1155722773704998963';
+        const permissionsRoleId = '1156311233025290311'; // Level 3 permissions role ID
         const xpFilePath = path.resolve(__dirname, '../../Economy/Levels/xp.json');
+
+        // Check if user has the muted role
+        if (message.member.roles.cache.has(mutedRoleId)) return;
 
         // Load user XP data
         const xpData = JSON.parse(fs.readFileSync(xpFilePath, 'utf8'));
@@ -22,7 +27,7 @@ module.exports = {
 
         // Define milestone levels and corresponding role IDs
         const levelRoles = {
-            3: '1156311233025290311',
+            3: permissionsRoleId, // Keep permissions role as a milestone for level 3
             5: '1275056698494554246',
             10: '1275058457615274097',
             20: '1275059611623489600',
@@ -40,8 +45,10 @@ module.exports = {
         const xpGain = Math.floor(Math.random() * 11) + 5;
         xpData[userId].xp += xpGain;
 
+        // Calculate XP required for the next level (increments of 250 per level)
+        const xpForNextLevel = xpData[userId].level * 250;
+
         // Level up if XP threshold is reached
-        const xpForNextLevel = xpData[userId].level * 100;
         if (xpData[userId].xp >= xpForNextLevel) {
             xpData[userId].xp -= xpForNextLevel;
             xpData[userId].level += 1;
@@ -49,30 +56,43 @@ module.exports = {
             message.channel.send(
                 `🎉**Congratulations ${message.author}!🎉**\n**You've leveled up to level ${xpData[userId].level}!**`
             );
+        }
 
-            // Remove the previous milestone role if above level 3
-            if (xpData[userId].level > 3) {
-                const previousRoleId = levelRoles[xpData[userId].level - 1];
-                if (previousRoleId && previousRoleId !== levelRoles[3]) {
-                    const previousRole = message.guild.roles.cache.get(previousRoleId);
-                    if (previousRole && message.member.roles.cache.has(previousRoleId)) {
-                        await message.member.roles.remove(previousRole);
-                    }
+        // Check and update roles for the member
+        const currentLevel = xpData[userId].level;
+
+        try {
+            // Find the latest role for the current level
+            const milestoneRoleId = Object.entries(levelRoles)
+                .filter(([level]) => currentLevel >= level)
+                .map(([, roleId]) => roleId)
+                .pop();
+
+            // Remove unrelated milestone roles except the permissions role
+            const userRoles = message.member.roles.cache;
+            for (const [, roleId] of Object.entries(levelRoles)) {
+                if (roleId !== milestoneRoleId && roleId !== permissionsRoleId && userRoles.has(roleId)) {
+                    await message.member.roles.remove(roleId);
                 }
             }
 
-            // Check if the new level has a role associated and add it if so
-            const newRoleId = levelRoles[xpData[userId].level];
-            if (newRoleId) {
-                try {
-                    const newRole = message.guild.roles.cache.get(newRoleId);
-                    if (newRole) {
-                        await message.member.roles.add(newRole);
-                    }
-                } catch (error) {
-                    console.error(`Failed to assign role for level ${xpData[userId].level} to ${message.author.tag}:`, error);
+            // Add the correct milestone role if not already assigned
+            if (milestoneRoleId && !userRoles.has(milestoneRoleId)) {
+                const milestoneRole = message.guild.roles.cache.get(milestoneRoleId);
+                if (milestoneRole) {
+                    await message.member.roles.add(milestoneRole);
                 }
             }
+
+            // Ensure the permissions role (level 3 role) is always kept
+            if (!userRoles.has(permissionsRoleId)) {
+                const permissionsRole = message.guild.roles.cache.get(permissionsRoleId);
+                if (permissionsRole) {
+                    await message.member.roles.add(permissionsRole);
+                }
+            }
+        } catch (error) {
+            console.error(`Failed to update roles for ${message.author.tag}:`, error);
         }
 
         // Save updated XP data

@@ -34,3 +34,4 @@ module.exports = {
         return interaction.reply(`**${interaction.user}, you are currently at level ${userLevel} with ${userXp} XP.**`);
     },
 };
+
