@@ -8,7 +8,7 @@ module.exports = async (client) => {
 
     const commandFolders = ['Everyone', 'Staff-Only']; // Folders to load commands from
     const table = new Table();
-    table.setHeading("Commands", "Status");
+    table.setHeading("      Commands       ", "Status");
 
     // Loop through each folder and load commands
     for (const folder of commandFolders) {
@@ -35,7 +35,7 @@ module.exports = async (client) => {
                                 ...command,
                                 folder // Add the folder info to the command object
                             });
-                            table.addRow(`  ${command.data.name} `, 'Loaded'); // Indent command name for better readability
+                            table.addRow(`    ${command.data.name} `, 'Loaded'); // Indent command name for better readability
                         } else {
                             table.addRow(`${file}`, 'Error: Missing command data'); // Indent error row
                         }

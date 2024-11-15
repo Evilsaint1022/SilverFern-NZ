@@ -7,28 +7,25 @@ module.exports = {
 
   async execute(interaction) {
     const { guild, user, channel } = interaction;
-    const logChannel = guild.channels.cache.get(process.env.Logs_ID); // Get log channel from environment variable
-    const timestamp = new Date().toLocaleTimeString(); // Get the current timestamp
-    const guildIconUrl = guild.iconURL() || ''; // Get the guild icon URL
-    let messageContent = ''; // Initialize message content variable
+    const logChannel = guild.channels.cache.get(process.env.Logs_ID);
+    const timestamp = new Date().toLocaleTimeString();
+    const guildIconUrl = guild.iconURL() || '';
+    const messageContent = 'Check out the GitHub repository:\nhttps://github.com/Evilsaint1022/SilverFern-NZ';
 
-    messageContent = `Check out the GitHub repository:\nhttps://github.com/Evilsaint1022/SilverFern-NZ`;
-    interaction.reply({ content: messageContent });
+    await interaction.reply({ content: messageContent });
 
-    // Log the command in the log channel
     if (logChannel) {
       logChannel.send({
         embeds: [{
-          color: 0x020202, // Dark color for the embed
-          title: `**__GitHub Application Command__ -【${timestamp}】**`, // Updated title to "GitHub"
-          thumbnail: { url: guildIconUrl }, // Display guild icon as thumbnail
-          description: `**User: ${user.tag}\nCommand: /GitHub\nMessage: ${messageContent}\nChannel: ${channel.name}**`, // Updated description with "GitHub"
+          color: 0x020202,
+          title: `**__GitHub Application Command__ -【${timestamp}】**`,
+          thumbnail: { url: guildIconUrl },
+          description: `**User: ${user.tag}\nCommand: /GitHub\nMessage: ${messageContent}\nChannel: ${channel.name}**`,
         }],
-      }).catch(error => {
-        console.error("Error sending message:", error); // Error handling if sending the log fails
-      });
+      }).catch(console.error);
     } else {
-      console.error("Log channel not found."); // Error if log channel doesn't exist
+      console.error("Log channel not found.");
     }
   },
 };
+

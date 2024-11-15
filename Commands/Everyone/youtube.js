@@ -7,11 +7,12 @@ module.exports = {
         .setDescription('Sends the YouTube playlist'),
     
     async execute(interaction) {
-        const user = interaction.user;
-        const channel = interaction.channel;
-        const timestamp = new Date().toLocaleTimeString(); // Get current timestamp
+        const { user, channel } = interaction;
+        const { guild } = interaction;
+        const timestamp = new Date().toLocaleTimeString();
         const channelName = channel.name;
-        
+        const guildIconUrl = guild.iconURL({ dynamic: true, format: 'png' });
+
         const youtubeEmbed = {
             color: 0x020202,
             title: '【🌿】Ｙｏｕｔｕｂｅ　Ｐｌａｙｌｉｓｔ',
@@ -27,10 +28,8 @@ module.exports = {
         await interaction.reply({ embeds: [youtubeEmbed] });
 
         // ** YouTube Channel Logs **
-        const logChannel = interaction.guild.channels.cache.get(process.env.Logs_ID);
+        const logChannel = guild.channels.cache.get(process.env.Logs_ID);
         if (logChannel) {
-            const guildIconUrl = interaction.guild.iconURL({ dynamic: true, format: 'png' }); // Get the guild's icon URL
-
             logChannel.send({
                 embeds: [{
                     color: 0x020202,
@@ -38,11 +37,10 @@ module.exports = {
                     thumbnail: { url: guildIconUrl },
                     description: `** User: ${user.tag} \nCommand: /Youtube\nChannel: ${channelName}**`
                 }]
-            }).catch(error => {
-                console.error("Error sending message:", error);
-            });
+            }).catch(console.error);
         } else {
             console.error("Log channel not found.");
         }
     }
 };
+

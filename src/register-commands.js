@@ -35,6 +35,30 @@ const commands = [
         name: 'github',
         description: 'The GitHub Repository Link',
     },
+    {
+        name: 'balance',
+        description: 'Check your current balance.',
+    },
+    {
+    name: 'leaderboard',
+    description: 'Displays the Leaderboard.',
+    },
+    {
+        name: 'avatar',
+        description: 'Displays the avatar of a specified user or your own.',
+        options: [
+            {
+                name: 'user',
+                description: "The user whose avatar you want to see",
+                type: 6,
+                required: true,
+            },
+        ],
+    },
+    {
+        name: 'level',
+        description: 'Check your current level',
+    },
 // ------------------------------------------------- @Staff Application Commands -----------------------------------------------------------------------
 
     {
@@ -83,13 +107,12 @@ const rest = new REST({ version: '10' }).setToken(process.env.TOKEN);
 
 const registerCommands = async (client) => {
     try {
-     await rest.put(
-        Routes.applicationGuildCommands (process.env.CLIENT_ID, process.env.GUILD_ID),
-        { body: commands }
-     )
-
-    } catch (error) {
-        console.log(`there was an error: ${error}`);
+        await rest.put(
+            Routes.applicationGuildCommands(process.env.CLIENT_ID, process.env.GUILD_ID),
+            { body: commands }
+        );
+    } catch (err) {
+        console.error('Error registering commands:', err);
     }
 };
 module.exports = { registerCommands };

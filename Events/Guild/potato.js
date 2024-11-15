@@ -37,7 +37,7 @@ module.exports = {
                 
                 if (now < expirationTime) {
                     const timeLeft = (expirationTime - now) / 2000;
-                    return message.reply(`please wait ${timeLeft.toFixed(1)} more seconds before using the "potato" command again.`);
+                    return message.reply(`Busy counting my potatos at the moment.`);
                 }
             }
 

@@ -1,3 +1,3 @@
 @echo off
 cd [ Server Directory Link ]
-nodemon
+node src/index.js

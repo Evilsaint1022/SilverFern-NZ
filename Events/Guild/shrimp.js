@@ -33,7 +33,7 @@ module.exports = {
                 
                 if (now < expirationTime) {
                     const timeLeft = (expirationTime - now) / 2000;
-                    return message.reply(`please wait ${timeLeft.toFixed(1)} more seconds before using the "shrimp" command again.`);
+                    return message.reply(`Shrimply Shrimptastic`);
                 }
             }
 
