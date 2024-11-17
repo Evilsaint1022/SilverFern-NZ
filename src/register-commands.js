@@ -101,6 +101,24 @@ const commands = [
             },
         ],
     },
+    {
+        name: 'editlevel',
+        description: 'Edit the level of a user.',
+        options: [
+            {
+                name: 'user',
+                description: 'The user whose level you want to edit.',
+                type: 6,
+                required: true,
+            },
+            {
+                name: 'level',
+                description: 'The new level value.',
+                type: 4,
+                required: true,
+            },
+        ]
+    }
 ];
 
 const rest = new REST({ version: '10' }).setToken(process.env.TOKEN);

@@ -6,6 +6,7 @@ module.exports = {
         .setDescription('Mute a member by adding and removing specific roles')
         .addUserOption(option => option.setName('member').setDescription('The member to mute').setRequired(true)),
     async execute(interaction) {
+        
         const requiredRole = '1155726483080347688';
 
         // Check if the user has the required role
