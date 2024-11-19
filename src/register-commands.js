@@ -103,10 +103,6 @@ const commands = [
             },
         ],
     },
-    {
-        name: 'pick',
-        description: 'Listens for the fern drop message and awards points to members.',
-    },
 // ------------------------------------------------- @Staff Application Commands -----------------------------------------------------------------------
 
     {
