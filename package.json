@@ -3,7 +3,7 @@
     "@discordjs/builders": "^1.9.0",
     "@discordjs/rest": "^2.4.0",
     "@discordjs/voice": "^0.17.0",
-    "@napi-rs/canvas": "^0.1.61",
+    "@napi-rs/canvas": "^0.1.62",
     "ascii-table": "^0.0.9",
     "axios": "^1.7.7",
     "child_process": "^1.0.2",
@@ -40,7 +40,7 @@
   "author": "Evilsaint1022",
   "license": "ISC",
   "devDependencies": {
-    "eslint": "^9.14.0",
+    "eslint": "^9.15.0",
     "nodemon": "^3.1.7"
   },
   "description": ""

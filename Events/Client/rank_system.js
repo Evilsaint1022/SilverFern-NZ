@@ -45,8 +45,8 @@ module.exports = {
         const xpGain = Math.floor(Math.random() * 11) + 5;
         xpData[userId].xp += xpGain;
 
-        // Calculate XP required for the next level (increments of 500 per level)
-        const xpForNextLevel = xpData[userId].level * 500;
+        // Calculate XP required for the next level (increments of 350 per level)
+        const xpForNextLevel = xpData[userId].level * 350;
 
         // Level up if XP threshold is reached
         if (xpData[userId].xp >= xpForNextLevel) {

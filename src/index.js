@@ -29,7 +29,6 @@ client.commands = new Map();
     // Set the bot's activity
     setInterval(() => {
         const activities = [
-            "🥔 𝗠𝗮𝗱𝗲 𝗯𝘆 𝗣𝗼𝘁𝗮𝘁𝗼",
             "𝗪𝗻𝗱 𝗯𝗲𝘀𝘁 𝗺𝗼𝗱 🔥",
             "𝗣𝗮𝗰𝗸𝗶𝗻𝗴 𝗻 𝗦𝗮𝘃𝗶𝗻𝗴",
             "🦐𝙎𝙝𝙧𝙞𝙢𝙥",

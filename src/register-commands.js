@@ -38,6 +38,14 @@ const commands = [
     {
         name: 'balance',
         description: 'Check your current balance.',
+        options: [
+            {
+                name: 'user',
+                description: 'The user to check the balance of',
+                type: 6,
+                required: false,
+            },
+        ],
     },
     {
     name: 'leaderboard',
@@ -58,6 +66,46 @@ const commands = [
     {
         name: 'level',
         description: 'Check your current level',
+        options: [
+            {
+                name: 'user',
+                description: 'The user to check the level of',
+                type: 6,
+                required: false,
+            },
+        ],
+    },
+    {
+        name: 'daily',
+        description: 'Claim your daily points!',
+    },
+    {
+        name: 'deposit',
+        description: 'Deposit points from your Wallet to your Bank.',
+        options: [
+            {
+                name: 'amount',
+                description: 'The amount of points to deposit.',
+                type: 4,
+                required: true,
+            },
+        ],
+    },
+    {
+        name: 'withdraw',
+        description: 'Withdraw points from your Bank to your Wallet.',
+        options: [
+            {
+                name: 'amount',
+                description: 'The amount of points to withdraw.',
+                type: 4,
+                required: true,
+            },
+        ],
+    },
+    {
+        name: 'pick',
+        description: 'Listens for the fern drop message and awards points to members.',
     },
 // ------------------------------------------------- @Staff Application Commands -----------------------------------------------------------------------
 
