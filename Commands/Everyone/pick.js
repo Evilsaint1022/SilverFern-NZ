@@ -69,7 +69,7 @@ module.exports = {
                 embeds: [
                     {
                         title: '**🌿 Ferns Picked!**',
-                        description: `*You picked ${pointsEarned} points!*`,
+                        description: `*You picked **${pointsEarned}** Ferns!*`,
                         color: 0xFFFFFF,
                     },
                 ],

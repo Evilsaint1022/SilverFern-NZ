@@ -103,7 +103,7 @@ module.exports = {
         const embed = new EmbedBuilder()
             .setColor(0xFFFFFF) // Green color
             .setTitle(`${user.username}'s Daily Points`)
-            .setDescription(`You have claimed your daily reward of **${rewardAmount} Ferns**!`)
+            .setDescription(`You have claimed your daily reward of **${rewardAmount} Ferns🌿**!`)
             .addFields(
                 { name: 'Total Balance', value: `${balance} Ferns`, inline: true }
             )

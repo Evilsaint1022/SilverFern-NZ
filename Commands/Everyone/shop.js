@@ -47,28 +47,31 @@ module.exports = {
 
       const embed = new EmbedBuilder()
         .setTitle('**╭─── 🌿The SilverFern Shop ───╮**')
-        .setDescription('*You can buy things using the **`/buy`** command.*\n> \n· · - ┈┈━━ ˚ . 🌿 . ˚ ━━┈┈ - · ·')
+        .setDescription('*You can buy things using the **`/buy`** command.*\n· · - ┈┈━━ ˚ . 🌿 . ˚ ━━┈┈ - · ·')
         .setColor('#ffffff') // White color for embed
         .setFooter({ text: `Page ${page + 1} of ${totalPages}`, iconURL: interaction.client.user.displayAvatarURL() })
         .setThumbnail(interaction.guild.iconURL()) // Set the bot icon as the thumbnail
         .setTimestamp(); // Set timestamp for when the embed is created
 
-      items.forEach(item => {
-        embed.addFields({ name: '🌿 ' + `**${item.title}**`, value: `${item.description}\n> **Role Reward:** <@&${item.role}>\n> Price: 🌿${item.price}\n> .` });
+      items.forEach((item, index) => {
+        const globalIndex = start + index + 1; // Calculate global index for numbering
+        embed.addFields({ 
+          name: `${globalIndex} 🌿**__${item.title}__**`, 
+          value: `${item.description}\n> • **Role Reward:** <@&${item.role}>\n> • **Price:** 🌿${item.price}\n` 
+        });
       });
 
       // Add bottom part to the embed message (extra information)
-        embed.addFields({
-          name: '\n', // Invisible character (zero-width space) for spacing
-          value: `*🌿Thanks for using The SilverFern Shop!*`
-          });
-        embed.addFields({
-          name: '\n', // Invisible character (zero-width space) for spacing
-          value: `**╰────────────────────────────╯**`
+      embed.addFields({
+        name: '\n', // Invisible character (zero-width space) for spacing
+        value: `*🌿Thanks for using The SilverFern Shop!*`
+      });
+      embed.addFields({
+        name: '\n', // Invisible character (zero-width space) for spacing
+        value: `**╰────────────────────────────╯**`
       });
 
-return embed;
-
+      return embed;
     };
 
     // Generate buttons for pagination with the stop button centered
@@ -113,7 +116,6 @@ return embed;
       } else if (buttonInteraction.customId === 'stop') {
         collector.stop();
         return buttonInteraction.update({
-          content: 'Navigation stopped.',
           components: [], // Remove all buttons after stop
         });
       }

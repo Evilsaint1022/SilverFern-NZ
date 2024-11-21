@@ -1,7 +1,7 @@
 [
     {
       "title": "Announcement Message",
-      "description": "Allows you to send a single message in the <#1155691009792028776> channel.",
+      "description": "Allows you to send a single message in the Announcement channel.",
       "role": "1200307213428867072",
       "price": "20000"
     }
