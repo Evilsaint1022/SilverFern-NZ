@@ -4,7 +4,7 @@ const { EventEmitter } = require('events');
 // EventEmitter instance to manage fern drop events
 const fernDropEvent = new EventEmitter();
 
-// Channel ID where ferns will be dropped
+// Channel ID where ferns will be dropped and activity tracked
 const dropChannelId = '1155691009792028779';
 const activityCooldown = 1000; // 1 second in milliseconds for activity tracking
 const messageCooldown = 90 * 1000; // 1.5 minutes cooldown for dropping messages
@@ -13,20 +13,22 @@ let lastActivityTime = Date.now();
 let lastMessageDropTime = 0; // Tracks the time of the last fern drop
 let isFernDropScheduled = false; // Flag to check if a fern drop is scheduled
 
-// Function to track activity
-const trackActivity = () => {
-    lastActivityTime = Date.now();
+// Function to track activity in the drop channel
+const trackActivity = (message) => {
+    if (message.channel.id === dropChannelId) {
+        lastActivityTime = Date.now();
+    }
 };
 
 module.exports = {
     name: Events.MessageCreate, // Trigger on new message creation
 
     async execute(message) {
-        // Ignore messages from bots or in other channels
+        // Ignore messages from bots or in channels other than the drop channel
         if (message.author.bot || message.channel.id !== dropChannelId) return;
 
         // Track activity in the specified channel
-        trackActivity();
+        trackActivity(message);
 
         // Prevent scheduling another fern drop if one is already scheduled
         if (isFernDropScheduled) return;
@@ -43,12 +45,12 @@ module.exports = {
             // Drop ferns only if the activity cooldown has been met
             if (timeSinceLastActivity >= activityCooldown) {
                 // Random chance to drop ferns (100% probability)
-                if (Math.random() < 1) {
+                if (Math.random() < 1.0) {
                     try {
                         const channel = await message.client.channels.fetch(dropChannelId);
                         if (channel) {
-                            const fernMessage = await channel.send('**🌿 SilverFern Has Dropped Some Ferns!**');
-
+                            const fernMessage = await channel.send('**🌿 SilverFern Has Dropped Some Ferns!**\n*use the **`/pick`** Command to pick them up!*');
+                            
                             // Emit the fern drop event with the fern message
                             fernDropEvent.triggerNewDrop(fernMessage);
 
@@ -70,7 +72,7 @@ module.exports = {
             }
 
             // Reset the scheduling flag
-            isFernDropScheduled = false;
+            isFernDropScheduled = true; // Allow another drop to be scheduled
         }, activityCooldown);
     },
 };

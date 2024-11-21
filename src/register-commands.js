@@ -107,6 +107,10 @@ const commands = [
         name: 'pick',
         description: 'Pick up the dropped ferns for points!',
     },
+    {
+        name: 'shop',
+        description: 'Displays the Shop',
+    },
 // ------------------------------------------------- @Staff Application Commands -----------------------------------------------------------------------
 
     {
