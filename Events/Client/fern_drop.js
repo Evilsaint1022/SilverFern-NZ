@@ -4,21 +4,18 @@ const { EventEmitter } = require('events');
 // EventEmitter instance to manage fern drop events
 const fernDropEvent = new EventEmitter();
 
-// Channel ID where ferns will be dropped and activity tracked
+// Channel ID where ferns will be dropped
 const dropChannelId = '1155691009792028779';
-const activityCooldown = 1000; // 1 second in milliseconds for activity tracking
-const messageCooldown = 90 * 1000; // 1.5 minutes cooldown for dropping messages
+const minCooldown = 2 * 60 * 1000; // Minimum cooldown: 2 minutes
+const maxCooldown = 5 * 60 * 1000; // Maximum cooldown: 5 minutes
 
-let lastActivityTime = Date.now();
 let lastMessageDropTime = 0; // Tracks the time of the last fern drop
-let isFernDropScheduled = false; // Flag to check if a fern drop is scheduled
+let nextCooldown = getRandomCooldown(); // Initial randomized cooldown
 
-// Function to track activity in the drop channel
-const trackActivity = (message) => {
-    if (message.channel.id === dropChannelId) {
-        lastActivityTime = Date.now();
-    }
-};
+// Function to get a random cooldown between min and max
+function getRandomCooldown() {
+    return Math.floor(Math.random() * (maxCooldown - minCooldown + 1)) + minCooldown;
+}
 
 module.exports = {
     name: Events.MessageCreate, // Trigger on new message creation
@@ -27,53 +24,37 @@ module.exports = {
         // Ignore messages from bots or in channels other than the drop channel
         if (message.author.bot || message.channel.id !== dropChannelId) return;
 
-        // Track activity in the specified channel
-        trackActivity(message);
-
-        // Prevent scheduling another fern drop if one is already scheduled
-        if (isFernDropScheduled) return;
+        const currentTime = Date.now();
 
         // Check if the cooldown period for dropping ferns has passed
-        const currentTime = Date.now();
-        if (currentTime - lastMessageDropTime < messageCooldown) return;
+        if (currentTime - lastMessageDropTime < nextCooldown) return;
 
-        // Schedule a fern drop after the activity cooldown
-        isFernDropScheduled = true;
-        setTimeout(async () => {
-            const timeSinceLastActivity = Date.now() - lastActivityTime;
+        try {
+            // Send the fern drop message
+            const channel = await message.client.channels.fetch(dropChannelId);
+            if (channel) {
+                const fernMessage = await channel.send(
+                    '**🌿 SilverFern Has Dropped Some Ferns!**\n*use the **`/pick`** Command to pick them up!*'
+                );
 
-            // Drop ferns only if the activity cooldown has been met
-            if (timeSinceLastActivity >= activityCooldown) {
-                // Random chance to drop ferns (100% probability)
-                if (Math.random() < 1.0) {
-                    try {
-                        const channel = await message.client.channels.fetch(dropChannelId);
-                        if (channel) {
-                            const fernMessage = await channel.send('**🌿 SilverFern Has Dropped Some Ferns!**\n*use the **`/pick`** Command to pick them up!*');
-                            
-                            // Emit the fern drop event with the fern message
-                            fernDropEvent.triggerNewDrop(fernMessage);
+                // Emit the fern drop event with the fern message
+                fernDropEvent.triggerNewDrop(fernMessage);
 
-                            // Delete the fern message after 40 seconds
-                            setTimeout(() => {
-                                if (fernMessage.deletable) {
-                                    fernMessage.delete().catch(console.error);
-                                    fernDropEvent.clearFernDrop(); // Clear the current fern data
-                                }
-                            }, 40000); // 40 seconds
-                        }
-
-                        // Update the last fern drop time
-                        lastMessageDropTime = Date.now();
-                    } catch (error) {
-                        console.error('Error sending fern drop message:', error);
+                // Delete the fern message after 40 seconds
+                setTimeout(() => {
+                    if (fernMessage.deletable) {
+                        fernMessage.delete().catch(console.error);
+                        fernDropEvent.clearFernDrop(); // Clear the current fern data
                     }
-                }
+                }, 40000); // 40 seconds
             }
 
-            // Reset the scheduling flag
-            isFernDropScheduled = true; // Allow another drop to be scheduled
-        }, activityCooldown);
+            // Update the last drop time and set a new random cooldown
+            lastMessageDropTime = currentTime;
+            nextCooldown = getRandomCooldown();
+        } catch (error) {
+            console.error('Error sending fern drop message:', error);
+        }
     },
 };
 
