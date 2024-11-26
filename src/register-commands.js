@@ -111,6 +111,24 @@ const commands = [
         name: 'shop',
         description: 'Displays the Shop',
     },
+    {
+        name: 'pay',
+        description: 'Transfer points to another member.',
+        options: [
+            {
+                name: 'target',
+                description: 'The member to whom you want to transfer points.',
+                type: 6,
+                required: true,
+            },
+            {
+                name: 'amount',
+                description: 'The number of points to transfer.',
+                type: 4,
+                required: true,
+            },
+        ]
+    },
 // ------------------------------------------------- @Staff Application Commands -----------------------------------------------------------------------
 
     {

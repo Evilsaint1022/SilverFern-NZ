@@ -6,16 +6,9 @@ const fernDropEvent = new EventEmitter();
 
 // Channel ID where ferns will be dropped
 const dropChannelId = '1155691009792028779';
-const minCooldown = 2 * 60 * 1000; // Minimum cooldown: 2 minutes
-const maxCooldown = 5 * 60 * 1000; // Maximum cooldown: 5 minutes
+const cooldownDuration = 5 * 60 * 1000; // Fixed cooldown: 5 minutes
 
 let lastMessageDropTime = 0; // Tracks the time of the last fern drop
-let nextCooldown = getRandomCooldown(); // Initial randomized cooldown
-
-// Function to get a random cooldown between min and max
-function getRandomCooldown() {
-    return Math.floor(Math.random() * (maxCooldown - minCooldown + 1)) + minCooldown;
-}
 
 module.exports = {
     name: Events.MessageCreate, // Trigger on new message creation
@@ -27,7 +20,7 @@ module.exports = {
         const currentTime = Date.now();
 
         // Check if the cooldown period for dropping ferns has passed
-        if (currentTime - lastMessageDropTime < nextCooldown) return;
+        if (currentTime - lastMessageDropTime < cooldownDuration) return;
 
         try {
             // Send the fern drop message
@@ -49,9 +42,8 @@ module.exports = {
                 }, 40000); // 40 seconds
             }
 
-            // Update the last drop time and set a new random cooldown
+            // Update the last drop time
             lastMessageDropTime = currentTime;
-            nextCooldown = getRandomCooldown();
         } catch (error) {
             console.error('Error sending fern drop message:', error);
         }
