@@ -30,7 +30,7 @@ module.exports = {
           color: 0x020202,
           title: `**__Cat Application Command__ - 【${timestamp}】**`,
           thumbnail: { url: guildIconUrl },
-          description: `**User: ${user.tag}\nCommand: /Cat\nMessage: ${messageContent}\nChannel: ${channel.name}**`,
+          description: `**User: ${user.tag}\nMessage: ${messageContent}\nChannel: ${channel.name}**`,
         }],
       });
     }

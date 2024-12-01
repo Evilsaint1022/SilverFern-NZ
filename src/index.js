@@ -1,23 +1,54 @@
+//
+//⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡀
+//⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⠀⣸⣷
+//⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡀⢰⡄⣾⣿⢿⠃
+//⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⡄⢠⣆⠀⣴⣼⣷⣾⣷⣜⣛⡟⠋
+//⠀⠀⠀⣤⣄⠀⠀⢀⡄⠀⣾⣗⣀⣿⡏⣼⣿⣿⣿⡓⣿⣧⠿⠿⠿⠟⠀
+//⠀⠀⢰⣿⡇⠀⢀⣿⡧⠔⣿⣯⣮⣿⡥⣿⣿⢶⣿⣧⠞⢷⣿⣾⣷⡶⠀
+//⠀⠀⢸⡿⡀⠀⢿⣿⡃⣺⣿⡿⢻⣿⣔⣺⣿⡿⠟⣿⣿⣷⣶⣶⡷⠀⠀
+//⠀⠀⢹⣿⡂⠀⢵⣿⠁⢬⣿⣏⢚⣿⣿⡾⣿⣿⣶⣤⣭⣈⡁⠁⠀⠀⠀
+//⠀⠀⠀⣿⢅⠀⢹⣿⢅⣼⣿⣿⣏⠙⣿⣷⣷⣏⠟⠟⠻⠛⠿⠿⠖⠀⠀
+//⠀⠀⠀⠘⣿⣠⠾⢿⣿⣶⡾⠿⣿⣿⣦⣯⣛⠿⣿⣷⣶⣦⣀⠀⠀⠀⠀
+//⢠⣤⠴⠞⢿⣷⣄⠹⠿⢿⣿⣦⣌⠈⠛⠿⣷⣷⣦⣌⠉⠙⠙⠀⠀⠀⠀
+//⠀⠀⠀⠀⠈⠿⣿⣷⣦⣀⠈⠛⢿⣷⣦⣀⠀⠀⠉⠉⠀⠀⠀⠀⠀⠀⠀
+//⠀⠀⠀⠀⠀⠀⠀⠙⠻⢿⣷⣶⣦⣌⡙⠻⠆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+//⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠈⠙⠛⠛⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+// ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+// 🌿ㅣSilverFern NZ
+// https://dsc.gg/silverfern
+// https://disboard.org/server/1155691009792028773
+// https://www.unfocused.org/server/1155691009792028773
+//
+// Created by Evilsaint1022
+// ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+
+
 require('dotenv').config();
-const fs = require('fs');
-const path = require('path');
 const { loadEvents } = require('../Handlers/eventHandler');
 const commandHandler = require('../Handlers/commandHandler');
 const { registerCommands } = require('./register-commands');
-const { Client, Collection, Partials, GatewayIntentBits, Events, MessageCollector, ActivityType, MessageEmbed, } = require(`discord.js`);
+const { Client, Collection, Partials, GatewayIntentBits, ActivityType, } = require(`discord.js`);
 const { user, Message, GuildMember, ThreadMember } = Partials;
 const client = new Client({
     intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMembers, GatewayIntentBits.GuildVoiceStates,GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent],
     partials: [ user, Message, GuildMember, ThreadMember]
 });
 
+// Loads Color Variables -----------------------------------------------------------------------------------------------------------------------
+
+// Colors variables get loaded globally and can be used in any file - [Do Not Remove!]
+const colors = require('colors');
+// used to load console colors
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+
 client.events = new Collection();
 client.commands = new Map();
 
-// Listen for the Ready Event ------------------------------------------------------------------------------------------------------------
+// Listen for the Ready Event ------------------------------------------------------------------------------------------------------------------
 
     client.once("ready", () => {
-    console.log(`[🌿│${client.user.tag} Is Online!]`);
+    console.log(`[🌿│${client.user.tag} Is Online!]`.bold.green);
 
     // Registers Application Commands
     registerCommands(client);

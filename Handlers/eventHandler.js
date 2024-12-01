@@ -31,7 +31,7 @@ function loadEvents(client) {
 
     // Print the table of events and a success message
     console.log(table.toString());
-    console.log("(✅│Successfully Loaded Events)");
+    console.log("(✅│Successfully Loaded Events)".bold.white);
 }
 
 module.exports = { loadEvents };

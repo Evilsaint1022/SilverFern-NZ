@@ -12,7 +12,7 @@ module.exports = {
 
     try {
       // Load the welcome template and member avatar
-      const templatePath = path.join(__dirname, '../../Storage/welcome.png');
+      const templatePath = path.join(__dirname, '../../Utilities/Banners/Welcome.png');
       const template = await loadImage(templatePath);
       const avatar = await loadImage(member.user.displayAvatarURL({ format: 'png' }));
 

@@ -11,7 +11,7 @@ module.exports = {
     .setDescription('Transfer points to another member.')
     .addUserOption(option =>
       option
-        .setName('target')
+        .setName('user')
         .setDescription('The member to whom you want to transfer points.')
         .setRequired(true)
     )
@@ -23,12 +23,18 @@ module.exports = {
     ),
 
   async execute(interaction) {
-    const sender = interaction.user; // Command user
-    const target = interaction.options.getUser('target'); // Target user
+    const channel = interaction.channel;
+    const guild = interaction.guild;
+    const guildIconUrl = guild.iconURL({ dynamic: true }) || '';
+    const timestamp = new Date().toLocaleTimeString();
+
+    // Get sender, target user, and transfer amount
+    const sender = interaction.user; // Interaction User
+    const user = interaction.options.getUser('user'); // Target User
     const amount = interaction.options.getInteger('amount'); // Transfer amount
 
     // Prevent self-payment
-    if (sender.id === target.id) {
+    if (sender.id === user.id) {
       return interaction.reply({ content: 'You cannot pay yourself!', ephemeral: true });
     }
 
@@ -37,9 +43,9 @@ module.exports = {
       return interaction.reply({ content: 'The transfer amount must be greater than 0.', ephemeral: true });
     }
 
-    // File paths for sender and target
+    // File paths for sender and user
     const senderFile = path.join(BALANCE_DIR, `${sender.username}.txt`);
-    const targetFile = path.join(BALANCE_DIR, `${target.username}.txt`);
+    const userFile = path.join(BALANCE_DIR, `${user.username}.txt`);
 
     try {
       // Read sender balance
@@ -52,23 +58,38 @@ module.exports = {
         return interaction.reply({ content: `You do not have enough points to transfer ${amount}.`, ephemeral: true });
       }
 
-      // Read target balance
-      const targetBalance = fs.existsSync(targetFile)
-        ? parseInt(fs.readFileSync(targetFile, 'utf-8'), 10)
+      // Read user balance
+      const userBalance = fs.existsSync(userFile)
+        ? parseInt(fs.readFileSync(userFile, 'utf-8'), 10)
         : 0;
 
       // Update balances
       const newSenderBalance = senderBalance - amount;
-      const newTargetBalance = targetBalance + amount;
+      const newUserBalance = userBalance + amount;
 
       // Write updated balances to files
       fs.writeFileSync(senderFile, newSenderBalance.toString());
-      fs.writeFileSync(targetFile, newTargetBalance.toString());
+      fs.writeFileSync(userFile, newUserBalance.toString());
+
+      const messageContent = `✅ **Payment Successful!**\n**${sender.username}** Paid **${amount} 🌿** to **${user.username}**.`;
 
       // Reply with success message
-      return interaction.reply(
-        `✅ **Payment Successful!**\n* **${sender.username}** Paid **${amount} 🌿** to **${target.username}**.`
-      );
+      await interaction.reply(messageContent);
+
+      // Logging to the defined channel
+      const logChannel = guild.channels.cache.get(process.env.Logs_ID);
+      if (logChannel) {
+        logChannel.send({
+          embeds: [
+            {
+              color: 0x020202,
+              title: `**__Pay Application Command__ - 【${timestamp}】**`,
+              thumbnail: { url: guildIconUrl },
+              description: `**User: ${sender.tag}\nReceiver: ${user.username}\nAmount: ${amount} 🌿\nChannel: ${channel.name}**`,
+            },
+          ],
+        });
+      }
     } catch (error) {
       console.error(error);
       return interaction.reply({

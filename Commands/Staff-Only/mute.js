@@ -35,7 +35,7 @@ module.exports = {
                         color: 0x020202,
                         title: `**__Mute Application Command__ - 【${timestamp}】**`,
                         thumbnail: { url: guildIconUrl }, // Display guild's icon as thumbnail
-                        description: `**User: ${interaction.user.tag}\nCommand: /Mute\nMuted: ${target.user.tag}\nChannel: ${interaction.channel.name}**`,
+                        description: `**User: ${interaction.user.tag}\nMuted: ${target.user.tag}\nChannel: ${interaction.channel.name}**`,
                     }],
                 }).catch(error => {
                     console.error("Error sending message:", error);

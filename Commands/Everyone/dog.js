@@ -18,7 +18,7 @@ module.exports = {
       });
 
       const dogImageUrl = data[0].url;
-      const messageContent = `Here's a random dog for you! \n${dogImageUrl}`;
+      const messageContent = `Here's a random dog for you! 🐶\n${dogImageUrl}`;
 
       await interaction.reply({ content: messageContent });
 
@@ -29,7 +29,7 @@ module.exports = {
             color: 0x020202,
             title: `**__Dog Application Command__ -【${timestamp}】**`,
             thumbnail: { url: guildIconUrl },
-            description: `**User: ${user.tag}\nCommand: /Dog\nMessage: ${messageContent}\nChannel: ${channel.name}**`,
+            description: `**User: ${user.tag}\nMessage: ${messageContent}\nChannel: ${channel.name}**`,
           }],
         }).catch(error => console.error("Error sending message:", error));
       } else {

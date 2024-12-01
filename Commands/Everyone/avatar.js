@@ -28,6 +28,7 @@ module.exports = {
 
         // Reply with the embed
         await interaction.reply({ embeds: [avatarEmbed] });
+
         const logChannel = guild.channels.cache.get(process.env.Logs_ID);
     if (logChannel) {
       logChannel.send({
@@ -35,7 +36,7 @@ module.exports = {
           color: 0x020202,
           title: `**__Avatar Application Command__ - 【${timestamp}】**`,
           thumbnail: { url: guildIconUrl },
-          description: `**User: ${interaction.user.tag}\nCommand: /Avatar\nChannel: ${channel.name}**`,
+          description: `**User: ${interaction.user.tag}\nChannel: ${channel.name}**`,
         }],
       });
     }

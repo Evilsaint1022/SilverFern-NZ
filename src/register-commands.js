@@ -116,7 +116,7 @@ const commands = [
         description: 'Transfer points to another member.',
         options: [
             {
-                name: 'target',
+                name: 'user',
                 description: 'The member to whom you want to transfer points.',
                 type: 6,
                 required: true,

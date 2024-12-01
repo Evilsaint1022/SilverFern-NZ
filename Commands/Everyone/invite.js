@@ -16,7 +16,7 @@ module.exports = {
                     color: 0x020202,
                     title: `**__Invite Application Command__ -【${new Date().toLocaleTimeString()}】**`,
                     thumbnail: { url: guild.iconURL({ dynamic: true, format: 'png' }) },
-                    description: `**User: ${user.tag}\nCommand: /Invite\nChannel: ${channel.name}**`,
+                    description: `**User: ${user.tag}\nChannel: ${channel.name}**`,
                 }],
             }).catch(console.error);
         } else {

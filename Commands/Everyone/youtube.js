@@ -1,5 +1,4 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { Channel } = require('discord.js');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -15,11 +14,11 @@ module.exports = {
 
         const youtubeEmbed = {
             color: 0x020202,
-            title: '【🌿】Ｙｏｕｔｕｂｅ　Ｐｌａｙｌｉｓｔ',
+            title: '🌿Ｙｏｕｔｕｂｅ　Ｐｌａｙｌｉｓｔ',
             url: 'https://www.youtube.com/playlist?list=PL320QKrhNcoSF-OWezlJWxr7bcYGp6De4&jct=sJJ7DkiJIphHURH2u6Pogtx7Hk0V0w',
             description: '*(click on the title to view the youtube playlist.)*',
             image: { 
-                url: 'https://media.discordapp.net/attachments/1155711970985660446/1288377697860452404/Untitled347.png?ex=66f4f6bc&is=66f3a53c&hm=a7113f83a5aed81bb74189b3d3d2b223546e8a2e526c26458bd2481c1d3c903f&=&format=webp&quality=lossless&width=1440&height=480',
+                url: 'https://cdn.discordapp.com/attachments/1155691009792028779/1312279473139351623/youtube_banner.png?ex=674beaff&is=674a997f&hm=8750379220ed9b7faf52c0beed21229bddbf6ec280239bc8b6e3143d85d20833&',
                 height: 1000,
                 width: 1000,
             },
@@ -35,7 +34,7 @@ module.exports = {
                     color: 0x020202,
                     title: `**__Youtube Application Command__ -【${timestamp}】**`,
                     thumbnail: { url: guildIconUrl },
-                    description: `** User: ${user.tag} \nCommand: /Youtube\nChannel: ${channelName}**`
+                    description: `** User: ${user.tag}\nChannel: ${channelName}**`
                 }]
             }).catch(console.error);
         } else {

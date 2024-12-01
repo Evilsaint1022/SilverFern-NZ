@@ -66,7 +66,7 @@ module.exports = {
             label: option.label,
             value: option.value,
             description: option.description,
-            emoji: null
+            emoji: '🌿'
           }))
         }
       ]

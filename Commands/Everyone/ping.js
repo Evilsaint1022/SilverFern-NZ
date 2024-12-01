@@ -28,7 +28,7 @@ module.exports = {
                     color: 0x020202,
                     title: `**__Ping Application Command__ -【${new Date().toLocaleTimeString()}】**`,
                     thumbnail: { url: interaction.guild.iconURL({ dynamic: true, format: 'png' }) },
-                    description: `**User: ${interaction.user.tag}\nCommand: /Ping\nChannel: ${interaction.channel.name}**`,
+                    description: `**User: ${interaction.user.tag}\nChannel: ${interaction.channel.name}**`,
                 }],
             }).catch(console.error);
         }

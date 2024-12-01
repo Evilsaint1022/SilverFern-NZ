@@ -70,7 +70,7 @@ module.exports = {
               color: 0x020202,
               title: `**__Balance Application Command__ - 【${timestamp}】**`, // 'Balance'
               thumbnail: { url: guildIconUrl },
-              description: `**User: ${user.tag}\nCommand: /Balance\nChannel: ${channel.name}**`, // '/Balance'
+              description: `**User: ${user.tag}\nChannel: ${channel.name}**`, // '/Balance'
             }],
           });
         }

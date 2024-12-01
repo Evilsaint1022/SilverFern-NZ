@@ -20,7 +20,7 @@ module.exports = {
           color: 0x020202,
           title: `**__GitHub Application Command__ -【${timestamp}】**`,
           thumbnail: { url: guildIconUrl },
-          description: `**User: ${user.tag}\nCommand: /GitHub\nMessage: ${messageContent}\nChannel: ${channel.name}**`,
+          description: `**User: ${user.tag}\nMessage: ${messageContent}\nChannel: ${channel.name}**`,
         }],
       }).catch(console.error);
     } else {

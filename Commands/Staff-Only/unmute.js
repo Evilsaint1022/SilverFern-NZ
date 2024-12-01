@@ -34,7 +34,7 @@ module.exports = {
                         color: 0x020202,
                         title: `**__Unmute Application Command__ - 【${timestamp}】**`,
                         thumbnail: { url: guildIconUrl }, // Display guild's icon as thumbnail
-                        description: `**User: ${interaction.user.tag}\nCommand: /Unmute\nUnmuted: ${target.user.tag}\nChannel: ${interaction.channel.name}**`,
+                        description: `**User: ${interaction.user.tag}\nUnmuted: ${target.user.tag}\nChannel: ${interaction.channel.name}**`,
                     }],
                 }).catch(error => {
                     console.error("Error sending message:", error);
