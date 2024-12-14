@@ -29,6 +29,7 @@
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢿⣄⡈⠉⠉⢿⣿⣦⠘⠉⠁⢀⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⠛⠷⠤⢼⠿⠷⢤⡼⡿⠛⠟⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
 ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+
 🌿ㅣＳｉｌｖｅｒＦｅｒｎ　ＮＺ
 
 this is a discord bot that is specially made for the silverfern NZ discord server. this bot is not modular and everyone is hard coded into the discord bot.
@@ -38,7 +39,9 @@ if you need any help at all regarding the discord bot code please dm me
 @evilsaint1022
 
 SilverFern Invite:
+
 https://discord.com/invite/WMkgNavWQe                                                            
 
 this code is free to use.
+
 ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
