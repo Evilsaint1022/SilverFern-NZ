@@ -2,7 +2,7 @@ require('dotenv').config();
 const fs = require('fs');
 const path = require('path');
 const { REST } = require('@discordjs/rest');
-const { Routes } = require('discord-api-types/v10');
+const { Routes } = require('discord.js');
 
 const commands = [
 
@@ -129,6 +129,18 @@ const commands = [
             },
         ]
     },
+    {
+        name: 'blackjack',
+        description: 'Play a game of blackjack and bet your balance!',
+        options: [
+            {
+                name: 'bet',
+                description: 'The amount to bet',
+                type: 4,
+                required: true,
+            },
+        ]
+    },
 // ------------------------------------------------- @Staff Application Commands -----------------------------------------------------------------------
 
     {
@@ -157,6 +169,12 @@ const commands = [
                 type: 6,
                 required: true,
             },
+            {
+                name: 'reason',
+                description: 'The reason for the mute',
+                type: 3,
+                required: true,
+            },
         ],
     },
     {
@@ -167,6 +185,12 @@ const commands = [
                 name: 'member',
                 description: 'The member to mute',
                 type: 6,
+                required: true,
+            },
+            {
+                name: 'reason',
+                description: 'The reason for the mute',
+                type: 3,
                 required: true,
             },
         ],

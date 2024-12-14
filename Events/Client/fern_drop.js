@@ -9,6 +9,7 @@ const dropChannelId = '1155691009792028779';
 const cooldownDuration = 5 * 60 * 1000; // Fixed cooldown: 5 minutes
 
 let lastMessageDropTime = 0; // Tracks the time of the last fern drop
+let isProcessing = false; // Lock to prevent concurrent execution
 
 module.exports = {
     name: Events.MessageCreate, // Trigger on new message creation
@@ -20,20 +21,23 @@ module.exports = {
         const currentTime = Date.now();
 
         // Check if the cooldown period for dropping ferns has passed
-        if (currentTime - lastMessageDropTime < cooldownDuration) return;
+        if (currentTime - lastMessageDropTime < cooldownDuration || isProcessing) return;
+
+        // Set the lock to prevent concurrent execution
+        isProcessing = true;
 
         try {
             // Send the fern drop message
             const channel = await message.client.channels.fetch(dropChannelId);
             if (channel) {
                 const fernMessage = await channel.send(
-                    '**🌿 SilverFern Has Dropped Some Ferns!**\n*use the **`/pick`** Command to pick them up!*'
+                    '**🌿 SilverFern Has Dropped Some Ferns!**\n*Use the **`/pick`** Command to pick them up!*'
                 );
 
                 // Emit the fern drop event with the fern message
                 fernDropEvent.triggerNewDrop(fernMessage);
 
-                // Delete the fern message after 40 seconds
+                // Schedule deletion of the fern message after 40 seconds
                 setTimeout(() => {
                     if (fernMessage.deletable) {
                         fernMessage.delete().catch(console.error);
@@ -46,6 +50,9 @@ module.exports = {
             lastMessageDropTime = currentTime;
         } catch (error) {
             console.error('Error sending fern drop message:', error);
+        } finally {
+            // Release the lock
+            isProcessing = false;
         }
     },
 };

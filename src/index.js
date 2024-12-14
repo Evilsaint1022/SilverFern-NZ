@@ -22,32 +22,42 @@
 // Created by Evilsaint1022
 // ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
 
+// ------------------------------------------------- @Index.js ----------------------------------------------------------------------
 
 require('dotenv').config();
 const { loadEvents } = require('../Handlers/eventHandler');
 const commandHandler = require('../Handlers/commandHandler');
 const { registerCommands } = require('./register-commands');
-const { Client, Collection, Partials, GatewayIntentBits, ActivityType, } = require(`discord.js`);
+const { Client, Collection, Partials, GatewayIntentBits, ActivityType, bold } = require('discord.js');
 const { user, Message, GuildMember, ThreadMember } = Partials;
+
+// Load Console Colors --------------------------------------------------------------------------------------------------------------
+
+const colors = require('colors'); // For console colors
+
+// loads colors globally for console use.
+
+// ----------------------------------------------------------------------------------------------------------------------------------
+
 const client = new Client({
-    intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMembers, GatewayIntentBits.GuildVoiceStates,GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent],
-    partials: [ user, Message, GuildMember, ThreadMember]
+    intents: [
+        GatewayIntentBits.Guilds,
+        GatewayIntentBits.GuildMembers,
+        GatewayIntentBits.GuildVoiceStates,
+        GatewayIntentBits.GuildMessages,
+        GatewayIntentBits.MessageContent
+    ],
+    partials: [user, Message, GuildMember, ThreadMember]
 });
 
-// Loads Color Variables -----------------------------------------------------------------------------------------------------------------------
-
-// Colors variables get loaded globally and can be used in any file - [Do Not Remove!]
-const colors = require('colors');
-// used to load console colors
-
-// ---------------------------------------------------------------------------------------------------------------------------------------------
+// Collections for commands and events ---------------------------------------------------------------------------------------------
 
 client.events = new Collection();
 client.commands = new Map();
 
-// Listen for the Ready Event ------------------------------------------------------------------------------------------------------------------
+// Ready Event ---------------------------------------------------------------------------------------------------------------------
 
-    client.once("ready", () => {
+client.once("ready", () => {
     console.log(`[🌿│${client.user.tag} Is Online!]`.bold.green);
 
     // Registers Application Commands
@@ -57,7 +67,8 @@ client.commands = new Map();
     loadEvents(client);
     commandHandler(client);
 
-    // Set the bot's activity
+// Set bot activity ----------------------------------------------------------------------------------------------------------------
+
     setInterval(() => {
         const activities = [
             "𝗪𝗻𝗱 𝗯𝗲𝘀𝘁 𝗺𝗼𝗱 🔥",
@@ -68,12 +79,12 @@ client.commands = new Map();
             "𝗦𝗵𝗼𝗽𝗽𝗶𝗻𝗴 𝗮𝘁 𝗣𝗮𝗸𝗻𝗦𝗹𝗮𝘃𝗲",
             "𝙞 𝙨𝙚𝙚 𝙮𝙤𝙪 👀",
         ];
-    const activity = activities[Math.floor(Math.random() * activities.length)];
-    client.user.setActivity(activity, { type: ActivityType.Custom });
-}, 5000); // 5000 milliseconds = 5 seconds
-})
+        const activity = activities[Math.floor(Math.random() * activities.length)];
+        client.user.setActivity(activity, { type: ActivityType.Custom });
+    }, 5000); // Update activity every 5 seconds
+});
 
-// Application Commands ------------------------------------------------------------------------------------------------------------------
+// Interaction Command Handler -----------------------------------------------------------------------------------------------------
 
 client.on('interactionCreate', async interaction => {
     if (!interaction.isCommand()) return;
@@ -89,5 +100,6 @@ client.on('interactionCreate', async interaction => {
     }
 });
 
-    // ** Token Client Login **
-    client.login(process.env.TOKEN);
+// Client Login ---------------------------------------------------------------------------------------------------------------------
+
+client.login(process.env.TOKEN);

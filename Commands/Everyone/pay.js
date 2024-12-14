@@ -38,6 +38,11 @@ module.exports = {
       return interaction.reply({ content: 'You cannot pay yourself!', ephemeral: true });
     }
 
+    // Prevent payment to bots
+    if (user.bot) {
+      return interaction.reply({ content: `You cannot transfer 🌿's to bots!`, ephemeral: true });
+    }
+
     // Validate amount
     if (amount <= 0) {
       return interaction.reply({ content: 'The transfer amount must be greater than 0.', ephemeral: true });

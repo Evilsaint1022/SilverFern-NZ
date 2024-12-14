@@ -42,8 +42,9 @@ module.exports = {
         return null; // Skip invalid items
       }
 
+      // Include the price in the label of the selection menu
       return {
-        label: item.title,
+        label: `${price} - ${item.title}`, // Price included in the label
         value: item.title,
         description: item.description,
         price: price,
@@ -66,14 +67,14 @@ module.exports = {
             label: option.label,
             value: option.value,
             description: option.description,
-            emoji: '🌿'
-          }))
-        }
-      ]
+            emoji: '🌿',
+          })),
+        },
+      ],
     };
 
     await interaction.reply({
-      content: `**Please select an item to buy:**\n*Your balance is ${balance}.🌿*`,
+      content: `**Please select an item to buy:**\n*Your balance is ${balance} 🌿*`,
       components: [selectMenu],
     });
 
@@ -122,16 +123,16 @@ module.exports = {
                       label: 'Selection expired',
                       value: 'expired',
                       description: 'You took too long to select an item.',
-                    }
-                  ] // Ensure there's at least one option
-                }
-              ]
-            }
+                    },
+                  ], // Ensure there's at least one option
+                },
+              ],
+            },
           ],
         });
       }
     });
-  }
+  },
 };
 
 // Function to load shop items from JSON files

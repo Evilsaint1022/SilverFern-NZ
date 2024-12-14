@@ -42,7 +42,7 @@ module.exports = {
                 .join('\n');
 
             return new EmbedBuilder()
-                .setTitle("**╭─── 🌿│Leaderboard ───╮**")
+                .setTitle("**╭─── The Leaderboard ───╮**")
                 .setDescription((leaderboard || "No users found.") + `\n\n**╰─────[ Your Rank: #${userRank} ]─────╯**`)
                 .setColor(0xFFFFFF)
                 .setThumbnail(interaction.guild.iconURL())
