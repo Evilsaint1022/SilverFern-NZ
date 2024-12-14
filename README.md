@@ -41,6 +41,6 @@ if you need any help at all regarding the discord bot code please dm me.
 SilverFern Invite:   
 https://discord.com/invite/WMkgNavWQe                                                            
 
-this code is free to use.
+# This code is free to use.
 
 ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
