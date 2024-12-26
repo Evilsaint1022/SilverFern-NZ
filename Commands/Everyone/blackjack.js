@@ -76,13 +76,13 @@ module.exports = {
         // Send initial game state
         const embed = {
             color: 0xFFFF00,
-            title: `**__Blackjack__**`,
-            description: `Bet: ${bet} Ferns 🌿\n\nYour move: Hit or Stand?`,
+            title: `**__♦️ Blackjack ♦️__**`,
+            description: `Placed Bet: ${bet} Ferns 🌿` + '\n`Your move: Hit or Stand?`',
             thumbnail: { url: user.displayAvatarURL() },
             fields: [
                 { name: 'Your Cards', value: playerCards.join(', '), inline: true },
                 { name: 'Your Total', value: playerTotal.toString(), inline: true },
-                { name: `Dealer's Cards`, value: dealerCards[0] + ', ?', inline: true }
+                { name: `Dealer's Cards`, value: dealerCards[0] + ', ?', inline: false }
             ]
         };
 
@@ -116,29 +116,30 @@ module.exports = {
 
                 const resultEmbed = {
                     color: result === 'win' ? 0x00FF00 : result === 'lose' ? 0xFF0000 : 0xFFFF00,
-                    title: `**__Blackjack Results__**`,
+                    title: `**__♠️ Blackjack Results ♠️__**`,
                     description: `You ${result === 'win' ? 'won' : result === 'lose' ? 'lost' : 'tied'} your bet of ${bet} Ferns 🌿!`,
                     thumbnail: { url: user.displayAvatarURL() },
                     fields: [
                         { name: 'Your Cards', value: playerCards.join(', '), inline: true },
                         { name: 'Your Total', value: playerTotal.toString(), inline: true },
-                        { name: `Dealer's Cards`, value: dealerCards.join(', '), inline: true },
-                        { name: 'Your Balance', value: balance.toString(), inline: true }
+                        { name: `Dealer's Cards`, value: dealerCards.join(', '), inline: false },
+                        { name: `Dealer's Total`, value: dealerTotal.toString(), inline: true },
+                        { name: 'Your Balance', value: balance.toString(), inline: false }
                     ]
-                };
+                };                
 
                 await buttonInteraction.update({ embeds: [resultEmbed], components: [] });
                 collector.stop();
             } else {
                 const updatedEmbed = {
                     color: 0xFFFF00,
-                    title: `**__Blackjack__**`,
-                    description: `Bet: ${bet} Ferns 🌿\n\nYour move: Hit or Stand?`,
+                    title: `**__♣️ Blackjack ♣️__**`,
+                    description: `Bet Placed: ${bet} Ferns 🌿` + '\n`Your move: Hit or Stand?`',
                     thumbnail: { url: user.displayAvatarURL() },
                     fields: [
                         { name: 'Your Cards', value: playerCards.join(', '), inline: true },
                         { name: 'Your Total', value: playerTotal.toString(), inline: true },
-                        { name: `Dealer's Cards`, value: dealerCards[0] + ', ?', inline: true }
+                        { name: `Dealer's Cards`, value: dealerCards[0] + ', ?', inline: false } // Still hidden
                     ]
                 };
 

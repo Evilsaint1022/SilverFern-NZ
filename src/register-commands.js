@@ -212,7 +212,12 @@ const commands = [
                 required: true,
             },
         ]
-    }
+    },
+    {
+        name: 'status',
+        description: 'Displays the current status of Discord services.',
+    },
+
 ];
 
 const rest = new REST({ version: '10' }).setToken(process.env.TOKEN);
