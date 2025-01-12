@@ -9,8 +9,8 @@ module.exports = {
 
   async execute(interaction) {
     const member = interaction.member;
-    const shopDirectory = path.resolve(__dirname, '../../Economy/Shop');
-    const balanceDirectory = path.resolve(__dirname, '../../Economy/Currency/Balance');
+    const shopDirectory = path.resolve(__dirname, '../../Utilities/Economy/Shop');
+    const balanceDirectory = path.resolve(__dirname, '../../Utilities/Economy/Currency/Balance');
 
     // Load all shop items
     const shopItems = loadShopItems(shopDirectory);

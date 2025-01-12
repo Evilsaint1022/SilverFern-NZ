@@ -7,8 +7,8 @@ module.exports = {
     // Check if the username has changed
     if (oldUser.username === newUser.username) return;
 
-    const balanceDir = path.resolve(__dirname, '../../Economy/Currency/Balance');
-    const bankDir = path.resolve(__dirname, '../../Economy/Currency/Bank');
+    const balanceDir = path.resolve(__dirname, '../../Utilities/Economy/Currency/Balance');
+    const bankDir = path.resolve(__dirname, '../../Utilities/Economy/Currency/Bank');
 
     try {
       // Define old and new filenames

@@ -15,7 +15,7 @@ module.exports = {
         const { user } = interaction;
         const bet = interaction.options.getInteger('bet');
         const username = interaction.user.username;
-        const balancePath = path.join(__dirname, '../../Economy/Currency/Balance', `${username}.txt`);
+        const balancePath = path.join(__dirname, '../../Utilities/Economy/Currency/Balance', `${username}.txt`);
 
         // Check if balance file exists
         if (!fs.existsSync(balancePath)) {

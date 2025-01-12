@@ -8,7 +8,7 @@ module.exports = {
     .setDescription('View the items available in the shop.'),
 
   async execute(interaction) {
-    const shopDirPath = path.resolve(__dirname, '../../Economy/Shop');
+    const shopDirPath = path.resolve(__dirname, '../../Utilities/Economy/Shop');
 
     // Load all JSON files from the Shop directory
     let shopItems = [];

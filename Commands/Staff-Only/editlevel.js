@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 
 // File path for the XP JSON file
-const xpFilePath = path.resolve(__dirname, '../../Economy/Levels/xp.json');
+const xpFilePath = path.resolve(__dirname, '../../Utilities/Economy/Levels/xp.json');
 
 module.exports = {
     data: new SlashCommandBuilder()

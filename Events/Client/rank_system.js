@@ -10,7 +10,7 @@ module.exports = {
 
         const mutedRoleId = '1155722773704998963';
         const permissionsRoleId = '1156311233025290311'; // Level 3 permissions role ID
-        const xpFilePath = path.resolve(__dirname, '../../Economy/Levels/xp.json');
+        const xpFilePath = path.resolve(__dirname, '../../Utilities/Economy/Levels/xp.json');
 
         // Check if user has the muted role
         if (message.member.roles.cache.has(mutedRoleId)) return;

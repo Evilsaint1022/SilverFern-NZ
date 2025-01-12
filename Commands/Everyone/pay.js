@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 
 // Balance directory
-const BALANCE_DIR = path.resolve(__dirname, '../../Economy/Currency/Balance');
+const BALANCE_DIR = path.resolve(__dirname, '../../Utilities/Economy/Currency/Balance');
 
 module.exports = {
   data: new SlashCommandBuilder()

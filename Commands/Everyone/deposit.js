@@ -15,8 +15,8 @@ module.exports = {
 
     async execute(interaction) {
         const { user } = interaction;
-        const walletFolder = path.resolve(__dirname, '../../Economy/Currency/Balance');
-        const bankFolder = path.resolve(__dirname, '../../Economy/Currency/Bank');
+        const walletFolder = path.resolve(__dirname, '../../Utilities/Economy/Currency/Balance');
+        const bankFolder = path.resolve(__dirname, '../../Utilities/Economy/Currency/Bank');
         const walletFilePath = path.join(walletFolder, `${user.username}.txt`);
         const bankFilePath = path.join(bankFolder, `${user.username}.txt`);
         

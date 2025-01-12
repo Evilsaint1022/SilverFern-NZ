@@ -13,8 +13,8 @@ module.exports = {
 
     async execute(interaction) {
         const { user, guild, channel } = interaction;
-        const folder = path.resolve(__dirname, '../../Economy/Currency/Balance');
-        const claimDataFilePath = path.resolve(__dirname, '../../Economy/Points/claims.json');
+        const folder = path.resolve(__dirname, '../../Utilities/Economy/Currency/Balance');
+        const claimDataFilePath = path.resolve(__dirname, '../../Utilities/Economy/Points/claims.json');
 
         const timestamp = new Date().toLocaleTimeString();
         const guildIconUrl = guild.iconURL({ dynamic: true, format: 'png' }) || '';

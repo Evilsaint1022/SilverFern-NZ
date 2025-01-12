@@ -8,7 +8,7 @@ module.exports = {
         .setDescription("Displays The Leaderboard"),
 
     async execute(interaction) {
-        const bankFolder = path.resolve(__dirname, '../../Economy/Currency/Balance');
+        const bankFolder = path.resolve(__dirname, '../../Utilities/Economy/Currency/Balance');
 
         if (!fs.existsSync(bankFolder)) {
             return await interaction.reply("The Bank folder does not exist. Please set up the economy system first.");

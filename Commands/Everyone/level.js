@@ -14,7 +14,7 @@ module.exports = {
         ),
 
     async execute(interaction) {
-        const xpFilePath = path.resolve(__dirname, '../../Economy/Levels/xp.json');
+        const xpFilePath = path.resolve(__dirname, '../../Utilities/Economy/Levels/xp.json');
 
         try {
             const xpData = JSON.parse(fs.readFileSync(xpFilePath, 'utf8'));

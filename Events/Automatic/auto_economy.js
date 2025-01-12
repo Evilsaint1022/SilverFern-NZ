@@ -6,8 +6,8 @@ module.exports = {
   name: Events.GuildMemberAdd,
   execute(member) {
     // Directories for balance and bank files
-    const balanceDir = path.resolve(__dirname, '../../Economy/Currency/Balance');
-    const bankDir = path.resolve(__dirname, '../../Economy/Currency/Bank');
+    const balanceDir = path.resolve(__dirname, '../../Utilities/Economy/Currency/Balance');
+    const bankDir = path.resolve(__dirname, '../../Utilities/Economy/Currency/Bank');
 
     // File paths for balance and bank files
     const balanceFilePath = path.join(balanceDir, `${member.user.username}.txt`);

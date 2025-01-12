@@ -1,15 +1,39 @@
 const { Events } = require('discord.js');
 const { EventEmitter } = require('events');
+const fs = require('fs');
+const path = require('path');
 
 // EventEmitter instance to manage fern drop events
 const fernDropEvent = new EventEmitter();
 
-// Channel ID where ferns will be dropped
-const dropChannelId = '1155691009792028779';
+// Filepath for storing the cooldown timer
+const timerFilePath = path.resolve(__dirname, '../../Utilities/Events/Client/timer.json');
 const cooldownDuration = 10 * 60 * 1000; // 10 minutes in milliseconds
+const dropChannelId = '1155691009792028779';
 
-let lastMessageDropTime = 0; // Tracks the time of the last fern drop
 let isProcessing = false; // Lock to prevent concurrent execution
+
+// Load the last drop time from the JSON file
+function getLastDropTime() {
+    try {
+        if (!fs.existsSync(timerFilePath)) return 0; // If file doesn't exist, return 0
+        const data = JSON.parse(fs.readFileSync(timerFilePath, 'utf-8'));
+        return data.lastMessageDropTime || 0; // Return timestamp or 0 if undefined
+    } catch (error) {
+        console.error('Error reading timer file:', error);
+        return 0; // Fallback to 0 in case of errors
+    }
+}
+
+// Save the last drop time to the JSON file
+function saveLastDropTime(timestamp) {
+    try {
+        const data = { lastMessageDropTime: timestamp };
+        fs.writeFileSync(timerFilePath, JSON.stringify(data, null, 4));
+    } catch (error) {
+        console.error('Error writing to timer file:', error);
+    }
+}
 
 module.exports = {
     name: Events.MessageCreate, // Trigger on new message creation
@@ -19,6 +43,7 @@ module.exports = {
         if (message.author.bot || message.channel.id !== dropChannelId) return;
 
         const currentTime = Date.now();
+        const lastMessageDropTime = getLastDropTime();
 
         // Check if the cooldown period for dropping ferns has passed
         if (currentTime - lastMessageDropTime < cooldownDuration || isProcessing) return;
@@ -31,7 +56,7 @@ module.exports = {
             const channel = await message.client.channels.fetch(dropChannelId);
             if (channel) {
                 const fernMessage = await channel.send(
-                    '**🌿 SilverFern Has Dropped Some Ferns!**\n*Use the **`/pick`** Command to pick them up!*'
+                    '**🌿 SilverFern Has Dropped Some Ferns!**\n*Use the **/pick** Command to pick them up!*'
                 );
 
                 // Emit the fern drop event with the fern message
@@ -46,8 +71,8 @@ module.exports = {
                 }, 40000); // 40 seconds
             }
 
-            // Update the last drop time
-            lastMessageDropTime = currentTime;
+            // Update the last drop time in the JSON file
+            saveLastDropTime(currentTime);
         } catch (error) {
             console.error('Error sending fern drop message:', error);
         } finally {

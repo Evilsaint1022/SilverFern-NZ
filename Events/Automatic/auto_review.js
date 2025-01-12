@@ -1,7 +1,30 @@
 const { Events } = require('discord.js');
+const fs = require('fs');
+const path = require('path');
 
-// Cooldown map to store the last sent time for the channel
-const cooldowns = new Map();
+// Path to the JSON file for storing cooldown data
+const cooldownFilePath = path.resolve(__dirname, '../../Utilities/Events/Automatic/cooldowns.json');
+
+function readCooldowns() {
+  try {
+    if (!fs.existsSync(cooldownFilePath)) {
+      fs.writeFileSync(cooldownFilePath, JSON.stringify({}));
+    }
+    const data = fs.readFileSync(cooldownFilePath, 'utf8');
+    return JSON.parse(data);
+  } catch (error) {
+    console.error(`Failed to read cooldown file: ${error}`);
+    return {};
+  }
+}
+
+function writeCooldowns(cooldowns) {
+  try {
+    fs.writeFileSync(cooldownFilePath, JSON.stringify(cooldowns, null, 2));
+  } catch (error) {
+    console.error(`Failed to write to cooldown file: ${error}`);
+  }
+}
 
 module.exports = {
   name: Events.MessageCreate,
@@ -14,15 +37,15 @@ module.exports = {
     const cooldownTime = 3 * 60 * 60 * 1000; // 3 hours in milliseconds
     const now = Date.now();
 
+    // Read cooldowns from the JSON file
+    const cooldowns = readCooldowns();
+
     // Check if the message is in the target channel
     if (message.channel.id !== targetChannelId) return;
 
     // Check if the channel is on cooldown
-    if (cooldowns.has(targetChannelId)) {
-      const lastSent = cooldowns.get(targetChannelId);
-      if (now - lastSent < cooldownTime) {
-        return; // Still on cooldown, do nothing
-      }
+    if (cooldowns[targetChannelId] && now - cooldowns[targetChannelId] < cooldownTime) {
+      return; // Still on cooldown, do nothing
     }
 
     // Send the review message
@@ -30,7 +53,8 @@ module.exports = {
       await message.channel.send("Give us an anonymous review:\nhttps://dyno.gg/form/fb130c8d");
 
       // Update the cooldown for this channel
-      cooldowns.set(targetChannelId, now);
+      cooldowns[targetChannelId] = now;
+      writeCooldowns(cooldowns);
     } catch (error) {
       console.error(`Failed to send review message in channel ${targetChannelId}:`, error);
     }

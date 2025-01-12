@@ -4,7 +4,7 @@ const fs = require('fs');
 const { fernDropEvent } = require('../../Events/Client/fern_drop'); // Import the fern_drop.js event
 
 // Path to the balance files
-const balanceFolder = path.resolve(__dirname, '../../Economy/Currency/Balance');
+const balanceFolder = path.resolve(__dirname, '../../Utilities/Economy/Currency/Balance');
 
 // Track users who have picked the fern for the current drop
 const pickedUsers = new Set();

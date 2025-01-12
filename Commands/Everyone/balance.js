@@ -19,8 +19,8 @@ module.exports = {
     async execute(interaction) {
         // Get the target user (either the command executor or a mentioned user)
         const targetUser = interaction.options.getUser('user') || interaction.user;
-        const folder = join(__dirname, '../../Economy/Currency/Balance');
-        const bankFolder = join(__dirname, '../../Economy/Currency/Bank');
+        const folder = join(__dirname, '../../Utilities/Economy/Currency/Balance');
+        const bankFolder = join(__dirname, '../../Utilities/Economy/Currency/Bank');
         const { user, channel, guild } = interaction;
         const timestamp = new Date().toLocaleTimeString();
         const guildIconUrl = guild.iconURL({ dynamic: true, format: 'png' }) || '';
