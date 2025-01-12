@@ -122,9 +122,9 @@ module.exports = {
                     fields: [
                         { name: 'Your Cards', value: playerCards.join(', '), inline: true },
                         { name: 'Your Total', value: playerTotal.toString(), inline: true },
-                        { name: `Dealer's Cards`, value: dealerCards.join(', '), inline: false },
+                        { name: `Dealer's Cards`, value: dealerCards.join(', '), inline: false, },
                         { name: `Dealer's Total`, value: dealerTotal.toString(), inline: true },
-                        { name: 'Your Balance', value: balance.toString(), inline: false }
+                        { name: '**__Your Balance__**', value: balance.toString(), inline: false }
                     ]
                 };                
 

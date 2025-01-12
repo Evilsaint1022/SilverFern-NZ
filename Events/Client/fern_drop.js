@@ -6,7 +6,7 @@ const fernDropEvent = new EventEmitter();
 
 // Channel ID where ferns will be dropped
 const dropChannelId = '1155691009792028779';
-const cooldownDuration = 5 * 60 * 1000; // Fixed cooldown: 5 minutes
+const cooldownDuration = 10 * 60 * 1000; // 10 minutes in milliseconds
 
 let lastMessageDropTime = 0; // Tracks the time of the last fern drop
 let isProcessing = false; // Lock to prevent concurrent execution
