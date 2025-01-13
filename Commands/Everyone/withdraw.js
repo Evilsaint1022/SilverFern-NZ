@@ -21,7 +21,7 @@ module.exports = {
         const bankFilePath = path.join(bankFolder, `${user.username}.txt`);
         
         // Get the withdrawal amount from the command options
-        const withdrawAmount = interaction.options.getInteger('amount');
+        let withdrawAmount = interaction.options.getInteger('amount');
 
         // Ensure folders exist
         if (!fs.existsSync(walletFolder)) {
@@ -41,7 +41,12 @@ module.exports = {
             console.error('Error reading bank balance:', error);
         }
 
-        // Check if the user has enough balance in the Bank
+        // If withdrawAmount is 0, withdraw all bank points
+        if (withdrawAmount === 0) {
+            withdrawAmount = bankBalance;
+        }
+
+        // Check if the user has enough balance in the Bank or if the withdrawal amount is valid
         if (bankBalance < withdrawAmount || withdrawAmount <= 0) {
             return interaction.reply('You do not have enough points in your Bank to withdraw or you entered an invalid amount.');
         }

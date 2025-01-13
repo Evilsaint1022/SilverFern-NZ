@@ -21,7 +21,7 @@ module.exports = {
         const bankFilePath = path.join(bankFolder, `${user.username}.txt`);
         
         // Get the deposit amount from the command options
-        const depositAmount = interaction.options.getInteger('amount');
+        let depositAmount = interaction.options.getInteger('amount');
 
         // Ensure folders exist
         if (!fs.existsSync(walletFolder)) {
@@ -41,7 +41,12 @@ module.exports = {
             console.error('Error reading wallet balance:', error);
         }
 
-        // Check if the user has enough balance in the Wallet
+        // If depositAmount is 0, deposit all wallet points
+        if (depositAmount === 0) {
+            depositAmount = walletBalance;
+        }
+
+        // Check if the user has enough balance in the Wallet or if the deposit amount is valid
         if (walletBalance < depositAmount || depositAmount <= 0) {
             return interaction.reply('You do not have enough points to deposit or you entered an invalid amount.');
         }
