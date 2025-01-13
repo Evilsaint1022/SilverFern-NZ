@@ -7,7 +7,7 @@ const path = require('path');
 const fernDropEvent = new EventEmitter();
 
 // Filepath for storing the cooldown timer
-const timerFilePath = path.resolve(__dirname, '../../Utilities/Events/Client/timer.json');
+const timerFilePath = path.resolve(__dirname, '../../Utilities/Timers/FernDrop_cooldown.json');
 const cooldownDuration = 10 * 60 * 1000; // 10 minutes in milliseconds
 const dropChannelId = '1155691009792028779';
 

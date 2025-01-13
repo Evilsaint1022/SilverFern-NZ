@@ -57,7 +57,7 @@ module.exports = {
         const globalIndex = start + index + 1; // Calculate global index for numbering
         embed.addFields({ 
           name: `${globalIndex} 🌿**__${item.title}__**`, 
-          value: `${item.description}\n> • **Role Reward:** <@&${item.role}>\n> • **Price:** 🌿${item.price}\n` 
+          value: `${item.description}\n> • **Role Reward:** <@&${item.role}>\n> • **Stock:** ${item.stock}\n> • **Price:** 🌿${item.price}\n` 
         });
       });
 

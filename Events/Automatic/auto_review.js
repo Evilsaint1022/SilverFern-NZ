@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 
 // Path to the JSON file for storing cooldown data
-const cooldownFilePath = path.resolve(__dirname, '../../Utilities/Events/Automatic/cooldowns.json');
+const cooldownFilePath = path.resolve(__dirname, '../../Utilities/Timers/auto_review_cooldown.json');
 
 function readCooldowns() {
   try {

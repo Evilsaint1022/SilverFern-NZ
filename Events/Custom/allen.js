@@ -1,14 +1,36 @@
 // events/allen.js
 
 const { Client, GatewayIntentBits } = require('discord.js');
+const fs = require('fs');
+const path = require('path');
 
 // List of GIF URLs (replace these with actual GIF URLs you want to use)
 const fartlist = [
     'https://tenor.com/iKwH7bWxQoH.gif', // Fart Gif
 ];
 
-// Map to store the cooldowns
-const cooldowns = new Map();
+// Path to the cooldown JSON file
+const cooldownFilePath = path.join(__dirname, '../../Utilities/Timers/allen_fart_cooldown.json');
+
+// Function to load cooldown data from the file
+const loadCooldowns = () => {
+    try {
+        const data = fs.readFileSync(cooldownFilePath, 'utf8');
+        return JSON.parse(data);
+    } catch (error) {
+        console.error('Error loading cooldown data:', error);
+        return {}; // Return an empty object if the file doesn't exist or there's an error
+    }
+};
+
+// Function to save cooldown data to the file
+const saveCooldowns = (cooldowns) => {
+    try {
+        fs.writeFileSync(cooldownFilePath, JSON.stringify(cooldowns, null, 2));
+    } catch (error) {
+        console.error('Error saving cooldown data:', error);
+    }
+};
 
 module.exports = {
     name: 'messageCreate',
@@ -19,32 +41,51 @@ module.exports = {
             if (message.author.bot) return; // Don't let the bot react to its own messages
 
             const now = Date.now();
-            const cooldownAmount = 20 * 2000; // 10 seconds in milliseconds
+            const cooldownAmount = 3 * 60 * 1000; // 3 minutes in milliseconds
 
-            if (cooldowns.has(message.author.id)) {
-                const expirationTime = cooldowns.get(message.author.id) + cooldownAmount;
-                
-                if (now < expirationTime) {
-                    const timeLeft = (expirationTime - now) / 2000;
-                    return message.reply(`Allen is Stinky.`);
-                }
-            }
+            // Load the current cooldowns from the file
+            const cooldowns = loadCooldowns();
 
-            // Add or update the cooldown for the user
-            cooldowns.set(message.author.id, now);
-
+            // Add reaction before checking cooldown
             try {
-                // Select a random GIF from the fartlist
-                const randomGif = fartlist[Math.floor(Math.random() * fartlist.length)];
-                 // Send the selected GIF to the channel
-                await message.channel.send(randomGif);
+                await message.react('💨'); // React with a fart emoji (you can change this to another emoji if needed)
             } catch (error) {
                 console.error('Failed to add reaction:', error);
             }
 
-            // Remove the cooldown after the cooldown period
-            setTimeout(() => cooldowns.delete(message.author.id), cooldownAmount);
+            // Check if the user is in cooldown
+            if (cooldowns.hasOwnProperty(message.author.id)) {
+                const expirationTime = cooldowns[message.author.id] + cooldownAmount;
 
+                if (now < expirationTime) {
+                    const timeLeft = (expirationTime - now) / 1000; // Convert to seconds
+                    return;
+                }
+            }
+
+            // Add or update the cooldown for the user
+            cooldowns[message.author.id] = now;
+
+            // Save the updated cooldown data to the file
+            saveCooldowns(cooldowns);
+
+            // Send the selected fart GIF only after the cooldown period has passed
+            try {
+                // Select a random GIF from the fartlist
+                const randomGif = fartlist[Math.floor(Math.random() * fartlist.length)];
+                // Send the selected GIF to the channel
+                await message.channel.send(randomGif);
+            } catch (error) {
+                console.error('Failed to send fart gif:', error);
+            }
+
+            // Remove the cooldown after the cooldown period
+            setTimeout(() => {
+                // Reload the cooldown data, remove the user, and save it back
+                const updatedCooldowns = loadCooldowns();
+                delete updatedCooldowns[message.author.id];
+                saveCooldowns(updatedCooldowns);
+            }, cooldownAmount);
         }
     },
 };

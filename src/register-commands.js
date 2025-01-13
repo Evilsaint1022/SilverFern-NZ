@@ -141,6 +141,18 @@ const commands = [
             },
         ]
     },
+    {
+        name: 'rolecount',
+        description: 'Get the number of members with a specific role.',
+        options: [
+            {
+                name: 'role',
+                description: 'The role to count',
+                type: 8,
+                required: true,
+            },
+        ]
+    },
 // ------------------------------------------------- @Staff Application Commands -----------------------------------------------------------------------
 
     {

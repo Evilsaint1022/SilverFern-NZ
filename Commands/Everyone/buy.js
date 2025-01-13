@@ -48,6 +48,7 @@ module.exports = {
         value: item.title,
         description: item.description,
         price: price,
+        stock: item.stock, // Adding stock information
       };
     }).filter(Boolean); // Remove any null/undefined items
 
@@ -87,6 +88,12 @@ module.exports = {
 
       if (selectedItem) {
         const price = parseFloat(selectedItem.price);
+        const stock = selectedItem.stock;
+
+        if (stock !== '∞' && stock <= 0) {
+          await i.reply({ content: `Sorry, ${selectedItem.title} is out of stock.`, ephemeral: true });
+          return;
+        }
 
         if (balance >= price) {
           // Check if user already has the role
@@ -96,7 +103,21 @@ module.exports = {
             // Deduct balance and assign role
             await updateUserBalance(userBalanceFilePath, balance - price);
             await member.roles.add(selectedItem.role);
-            await i.reply({ content: `You have successfully bought the ${selectedItem.title} for ${price} Ferns🌿`, ephemeral: true });
+
+            // Decrease stock if it's a number
+            if (stock !== '∞') {
+              selectedItem.stock -= 1;
+              await updateShopItem(shopDirectory, selectedItem);
+            }
+
+            // Disable the select menu and update the reply
+            await interaction.editReply({
+              content: `You have successfully bought the ${selectedItem.title} for ${price} Ferns🌿`,
+              components: [],
+            });
+
+            // Stop the collector after purchase
+            collector.stop();
           }
         } else {
           await i.reply({ content: `You don't have enough balance to buy ${selectedItem.title}.`, ephemeral: true });
@@ -148,6 +169,23 @@ function loadShopItems(shopDirectory) {
   });
 
   return shopItems;
+}
+
+// Function to update the stock in the shop's JSON files
+async function updateShopItem(shopDirectory, updatedItem) {
+  const files = fs.readdirSync(shopDirectory);
+  for (const file of files) {
+    if (file.endsWith('.json')) {
+      const filePath = path.join(shopDirectory, file);
+      const items = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
+      const itemIndex = items.findIndex(item => item.title === updatedItem.title);
+      if (itemIndex !== -1) {
+        items[itemIndex] = updatedItem; // Update the item
+        fs.writeFileSync(filePath, JSON.stringify(items, null, 2)); // Save back to the file
+        break;
+      }
+    }
+  }
 }
 
 // Function to get the user's balance
